@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Turno</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Confirmación de Turno</h1>
+        <!-- Mostrar los detalles del último turno -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Número de Turno</th>
+                    <th>Tipo de Estudio</th>
+                    <th>Nombre y Apellido del Paciente</th>
+                    <th>Identificación</th>
+                    <th>Email del Paciente</th>
+                    <th>Estado del Paciente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ ultimo_turno.numero_turno }}</td>
+                    <td>{{ ultimo_turno.tipo_estudio.nombre }}</td>
+                    <td>{{ ultimo_turno.paciente.nombre }} {{ ultimo_turno.paciente.apellido }}</td>
+                    <td>{{ ultimo_turno.paciente.identificacion }}</td>
+                    <td>{{ ultimo_turno.paciente.contacto }}</td>
+                    <td>{{ ultimo_turno.estado }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Botón para volver a la página de emisión de turno -->
+        <a href="{% url 'emitir_turno' %}" class="btn btn-primary">Aceptar</a>
+    </div>
+
+    <!-- Incluye jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Luego, incluye Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Emitir Turno</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Emitir Turno</h1>
+        <!-- Formulario para emitir un nuevo turno -->
+        <form id="emitirTurnoForm" method="post">
+            {% csrf_token %} <!-- Token de seguridad de Django -->
+            <!-- Campo para seleccionar el tipo de estudio -->
+            <div class="form-group">
+                <label for="id_tipo_estudio">Tipo de Estudio:</label>
+                <select class="form-control" id="id_tipo_estudio" name="tipo_estudio" required>
+                    <option value="">Selecciona un tipo de estudio</option>
+                    {% if tipos_estudio %}
+                        {% for tipo_estudio in tipos_estudio %}
+                            <option value="{{ tipo_estudio.id }}">{{ tipo_estudio.nombre }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="">No hay tipos de estudio disponibles</option>
+                    {% endif %}
+                </select>
+            </div>
+            <!-- Campo para ingresar el nombre del paciente -->
+            <div class="form-group">
+                <label for="id_nombre_paciente">Nombre del Paciente:</label>
+                <input type="text" class="form-control" id="id_nombre_paciente" name="nombre_paciente" required>
+            </div>
+            <!-- Campo para ingresar el apellido del paciente -->
+            <div class="form-group">
+                <label for="id_apellido_paciente">Apellido del Paciente:</label>
+                <input type="text" class="form-control" id="id_apellido_paciente" name="apellido_paciente" required>
+            </div>
+            <!-- Campo para ingresar la identificación del paciente -->
+            <div class="form-group">
+                <label for="id_identificacion">Edad del Paciente:</label>
+                <input type="text" class="form-control" id="id_identificacion" name="identificacion" required>
+            </div>
+            <!-- Campo para ingresar el email de contacto del paciente -->
+            <div class="form-group">
+                <label for="id_contacto">Email de contacto:</label>
+                <input type="email" class="form-control" id="id_contacto" name="contacto" required>
+            </div>
+            <!-- Campo para seleccionar el estado del paciente -->
+            <div class="form-group">
+                <label for="id_estado">Estado:</label>
+                <select class="form-control" id="id_estado" name="estado" required>
+                    <option value="">Selecciona el estado</option>
+                    <option value="paciente nuevo">Paciente Nuevo</option>
+                    <option value="paciente con expediente">Paciente con Expediente</option>
+                </select>
+            </div>
+            <!-- Botón para enviar el formulario y emitir el turno -->
+            <button type="submit" class="btn btn-primary">Emitir Turno</button>
+        </form>
+    </div>
+
+    <!-- Incluye jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Luego, incluye Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

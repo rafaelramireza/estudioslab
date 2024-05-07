@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Reporte</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Generar Reporte</h1>
+        <!-- Formulario para seleccionar el periodo de tiempo -->
+        <form id="generarReporteForm" method="post">
+            {% csrf_token %} <!-- Token de seguridad de Django -->
+            <div class="form-group">
+                <label for="fecha_inicio">Fecha de inicio:</label>
+                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_fin">Fecha de fin:</label>
+                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generar Reporte</button>
+        </form>
+
+        <!-- Tabla para mostrar los turnos emitidos en el periodo seleccionado -->
+        {% if turnos_emitidos %}
+        <h2 class="mt-5">Turnos Emitidos en el Periodo Seleccionado</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Número de Turno</th>
+                    <th>Tipo de Estudio</th>
+                    <th>Nombre y Apellido del Paciente</th>
+                    <th>Identificación</th>
+                    <th>Email del Paciente</th>
+                    <th>Estado del Paciente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turno in turnos_emitidos %}
+                <tr>
+                    <td>{{ turno.numero_turno }}</td>
+                    <td>{{ turno.tipo_estudio.nombre }}</td>
+                    <td>{{ turno.paciente.nombre }} {{ turno.paciente.apellido }}</td>
+                    <td>{{ turno.paciente.identificacion }}</td>
+                    <td>{{ turno.paciente.contacto }}</td>
+                    <td>{{ turno.estado }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <!-- Tabla para mostrar el total de turnos por tipo de estudio -->
+        {% if estudios_totales %}
+        <h2 class="mt-5">Total de Turnos por Tipo de Estudio</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tipo de Estudio</th>
+                    <th>Total de Turnos Emitidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for estudio in estudios_totales %}
+                <tr>
+                    <td>{{ estudio.tipo_estudio__nombre }}</td>
+                    <td>{{ estudio.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <!-- Incluye jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Luego, incluye Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
